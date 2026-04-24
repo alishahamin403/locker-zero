@@ -1,1330 +1,924 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Locker Zer° — Custom Jewelry Consulting</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Locker Zero | Website Mockups in 24 Hours</title>
+  <meta name="description" content="Locker Zero turns your website idea into a polished mockup within a day, then builds full websites with authentication, analytics, reporting, and payments." />
+  <meta property="og:title" content="Locker Zero | Website Mockups in 24 Hours" />
+  <meta property="og:description" content="Submit your website idea and get a mockup within a day. Build the full product with authentication, analytics, reports, and payment integrations." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="assets/locker-zero-logo.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; }
 
     :root {
-      --bg:        #0A0A0A;
-      --surface:   #111111;
-      --border:    #1E1E1E;
-      --gold:      #C9A84C;
-      --gold-lt:   #E8C96A;
-      --gold-dim:  rgba(201,168,76,0.12);
-      --white:     #F5F5F0;
-      --muted:     #888880;
-      --pain:      #3a1a1a;
-      --pain-border: #7a2a2a;
+      --ink: #11110f;
+      --muted: #696a63;
+      --line: rgba(17, 17, 15, 0.12);
+      --paper: #f7f4ed;
+      --mist: #e8ece4;
+      --clay: #c9865b;
+      --blue: #244c7c;
+      --green: #657a42;
+      --white: #fffdf7;
+      --shadow: 0 28px 80px rgba(32, 31, 26, 0.14);
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--bg);
-      color: var(--white);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 300;
-      line-height: 1.7;
+      margin: 0;
+      color: var(--ink);
+      font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        linear-gradient(110deg, rgba(232, 236, 228, 0.85), rgba(247, 244, 237, 0.78) 42%, rgba(255, 253, 247, 0.92)),
+        var(--paper);
+      line-height: 1.5;
       overflow-x: hidden;
     }
 
-    /* ─── UTILS ──────────────────────────────────── */
-    .degree { color: var(--gold); }
-
-    .fade-up {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .fade-up.d1 { transition-delay: 0.1s; }
-    .fade-up.d2 { transition-delay: 0.2s; }
-    .fade-up.d3 { transition-delay: 0.3s; }
-    .fade-up.d4 { transition-delay: 0.4s; }
-    .fade-up.d5 { transition-delay: 0.5s; }
-
-    /* ─── NAVBAR ─────────────────────────────────── */
-    #navbar {
+    body::before {
+      content: "";
       position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        linear-gradient(rgba(17, 17, 15, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(17, 17, 15, 0.035) 1px, transparent 1px);
+      background-size: 46px 46px;
+      mask-image: linear-gradient(to bottom, black, transparent 78%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    button, input, textarea, select { font: inherit; }
+
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 48px;
-      height: 72px;
-      background: rgba(10,10,10,0.85);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+      gap: 24px;
+      padding: 18px clamp(18px, 5vw, 58px);
+      background: rgba(247, 244, 237, 0.76);
       border-bottom: 1px solid transparent;
-      transition: border-color 0.3s;
+      backdrop-filter: blur(18px);
     }
-    #navbar.scrolled { border-bottom-color: rgba(201,168,76,0.25); }
 
-    .nav-brand {
+    .site-header.is-scrolled { border-bottom-color: var(--line); }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      color: var(--white);
+      background: var(--ink);
+      border-radius: 50%;
+      font-size: 0.75rem;
+      letter-spacing: 0;
+    }
+
+    .nav-links {
       display: flex;
       align-items: center;
-      gap: 11px;
-      text-decoration: none;
-    }
-    .nav-brand-text {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.15rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      color: var(--white);
+      gap: clamp(12px, 2vw, 28px);
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 700;
     }
 
-    .nav-cta {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 400;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--gold);
-      border: 1px solid var(--gold);
-      background: transparent;
-      padding: 10px 24px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.25s, color 0.25s;
-    }
-    .nav-cta:hover { background: var(--gold); color: #0A0A0A; }
+    .nav-links a:hover { color: var(--ink); }
 
-    /* ─── HERO ───────────────────────────────────── */
-    #hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+    .nav-cta,
+    .primary-btn,
+    .secondary-btn {
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      padding: 120px 24px 80px;
-      overflow: hidden;
+      min-height: 48px;
+      border-radius: 999px;
+      font-weight: 800;
+      letter-spacing: 0;
+      transition: transform 180ms ease, background 180ms ease, color 180ms ease, border-color 180ms ease;
     }
 
-    .hero-ring {
-      position: absolute;
-      border-radius: 50%;
-      border: 1px solid rgba(201,168,76,0.06);
-      pointer-events: none;
-    }
-    .hero-ring.r1 {
-      width: 500px; height: 500px;
-      top: 50%; left: 50%;
-      transform: translate(-50%,-50%);
-      animation: spinSlow 60s linear infinite;
-    }
-    .hero-ring.r2 {
-      width: 750px; height: 750px;
-      top: 50%; left: 50%;
-      transform: translate(-50%,-50%);
-      animation: spinSlow 90s linear infinite reverse;
-    }
-    .hero-ring.r3 {
-      width: 1050px; height: 1050px;
-      top: 50%; left: 50%;
-      transform: translate(-50%,-50%);
-      animation: spinSlow 120s linear infinite;
-    }
-    .hero-glow {
-      position: absolute;
-      width: 600px; height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(201,168,76,0.04) 0%, transparent 70%);
-      top: 50%; left: 50%;
-      transform: translate(-50%,-50%);
-      pointer-events: none;
-    }
-    @keyframes spinSlow { to { transform: translate(-50%,-50%) rotate(360deg); } }
-
-    .hero-eyebrow {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 400;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 24px;
-    }
-
-    .hero-headline {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(3rem, 7vw, 6.5rem);
-      font-weight: 400;
-      line-height: 1.1;
-      letter-spacing: -0.01em;
-      margin-bottom: 28px;
+    .nav-cta,
+    .primary-btn {
       color: var(--white);
-    }
-    .hero-headline em {
-      font-style: italic;
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-lt) 50%, var(--gold) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      background: var(--ink);
+      padding: 0 22px;
+      box-shadow: 0 14px 36px rgba(17, 17, 15, 0.18);
     }
 
-    .hero-sub {
-      max-width: 540px;
-      font-size: 1rem;
-      font-weight: 300;
-      color: var(--muted);
-      line-height: 1.75;
-      margin-bottom: 48px;
+    .secondary-btn {
+      color: var(--ink);
+      border: 1px solid var(--line);
+      padding: 0 22px;
+      background: rgba(255, 253, 247, 0.58);
+    }
+
+    .nav-cta:hover,
+    .primary-btn:hover,
+    .secondary-btn:hover { transform: translateY(-2px); }
+
+    .page-shell {
+      width: calc(100% - 36px);
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: 96vh;
+      display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(320px, 0.78fr);
+      align-items: center;
+      gap: clamp(34px, 6vw, 84px);
+      padding: 124px 0 70px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--green);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 2px;
+      border-radius: 999px;
+      background: currentColor;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    .hero > *,
+    .section-heading > *,
+    .brief-wrap > *,
+    .project > * {
+      min-width: 0;
+    }
+
+    h1 {
+      max-width: 880px;
+      margin-bottom: 24px;
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: 8.8rem;
+      font-weight: 400;
+      line-height: 0.83;
+      letter-spacing: 0;
+    }
+
+    .hero-copy {
+      max-width: 690px;
+      margin-bottom: 34px;
+      color: #3f4039;
+      font-size: 1.24rem;
+      line-height: 1.65;
     }
 
     .hero-actions {
       display: flex;
-      gap: 16px;
-      justify-content: center;
       flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 36px;
     }
 
-    .btn-primary {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 400;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      background: var(--gold);
-      color: #0A0A0A;
-      border: none;
-      padding: 15px 36px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.25s, transform 0.2s;
-    }
-    .btn-primary:hover { background: var(--gold-lt); transform: translateY(-1px); }
-
-    .btn-ghost {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 400;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      background: transparent;
-      color: var(--white);
-      border: 1px solid rgba(245,245,240,0.3);
-      padding: 15px 36px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: border-color 0.25s, color 0.25s;
-    }
-    .btn-ghost:hover { border-color: var(--white); }
-
-    .hero-divider {
-      width: 72px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      margin: 48px auto 0;
-    }
-
-    /* ─── CREDIBILITY BAR ───────────────────────── */
-    #cred {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 28px 48px;
-    }
-    .cred-inner {
-      max-width: 1100px;
-      margin: 0 auto;
+    .proof-strip {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0;
       flex-wrap: wrap;
-    }
-    .cred-item {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 400;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
+      gap: 12px;
       color: var(--muted);
-      padding: 6px 36px;
-    }
-    .cred-item span { color: var(--gold); }
-    .cred-dot {
-      width: 3px; height: 3px;
-      background: var(--gold);
-      border-radius: 50%;
-      opacity: 0.5;
-      flex-shrink: 0;
+      font-size: 0.9rem;
+      font-weight: 700;
     }
 
-    /* ─── SECTION SHARED ────────────────────────── */
-    section {
-      padding: 120px 48px;
-    }
-    .section-eyebrow {
-      font-size: 0.68rem;
-      font-weight: 400;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 20px;
-      display: block;
-    }
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      font-weight: 400;
-      line-height: 1.2;
-      margin-bottom: 16px;
-    }
-    .section-sub {
-      font-size: 0.95rem;
-      color: var(--muted);
-      max-width: 480px;
-      line-height: 1.8;
-    }
-    .centered { text-align: center; }
-    .centered .section-sub { margin: 0 auto; }
-
-    /* ─── JOURNEY MAP ───────────────────────────── */
-    #journey {
-      background: var(--bg);
-      padding: 120px 48px;
-    }
-    .journey-header {
-      text-align: center;
-      margin-bottom: 64px;
-    }
-    .journey-header .section-title { font-size: clamp(2.2rem, 4.5vw, 3.2rem); }
-    .journey-header .section-sub { margin: 12px auto 0; text-align: center; }
-
-    /* Swimlane wrapper */
-    .jmap-wrap { max-width: 1140px; margin: 0 auto; }
-
-    /* Each row */
-    .jmap-lane {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      padding: 28px 0;
+    .proof-strip span {
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 253, 247, 0.55);
     }
 
-    /* Left label column */
-    .jmap-label {
-      flex-shrink: 0;
-      width: 96px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      text-align: center;
-    }
-    .jmap-label-icon {
-      width: 28px; height: 28px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 11px;
-      font-weight: 500;
-    }
-    .jmap-lane.traditional .jmap-label-icon { background: rgba(179,90,90,0.15); color: #b35a5a; }
-    .jmap-lane.lz .jmap-label-icon { background: rgba(201,168,76,0.12); color: var(--gold); }
-    .jmap-label-text {
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      line-height: 1.4;
-    }
-    .jmap-lane.traditional .jmap-label-text { color: #b35a5a; }
-    .jmap-lane.lz .jmap-label-text { color: var(--gold); }
-
-    /* Flow: nodes + connectors in a grid */
-    .jmap-flow {
-      flex: 1;
-      display: grid;
-      grid-template-columns: 1fr 36px 1fr 36px 1fr 36px 1fr;
-      align-items: stretch;
-      gap: 0;
-    }
-
-    /* Node card */
-    .jmap-node {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 24px 16px;
-      border-radius: 6px;
-      gap: 8px;
-      min-height: 175px;
-      transition: transform 0.2s;
-      /* stretch to fill grid row so all boxes in a lane are equal height */
-      align-self: stretch;
-    }
-    .jmap-node:hover { transform: translateY(-2px); }
-
-    .jmap-lane.traditional .jmap-node {
-      background: rgba(40,18,18,0.55);
-      border: 1px solid rgba(122,42,42,0.35);
-    }
-    .jmap-lane.lz .jmap-node {
-      background: rgba(201,168,76,0.04);
-      border: 1px solid rgba(201,168,76,0.22);
-    }
-
-    /* Icon bubble */
-    .node-icon {
-      width: 44px; height: 44px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .jmap-lane.traditional .node-icon { background: rgba(122,42,42,0.25); }
-    .jmap-lane.lz .node-icon { background: rgba(201,168,76,0.1); }
-
-    .node-title {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 500;
-      line-height: 1.3;
-      color: var(--white);
-    }
-    .node-desc {
-      font-size: 0.72rem;
-      color: var(--muted);
-      line-height: 1.45;
-    }
-
-    /* Emotion / benefit badge */
-    .node-badge {
-      font-size: 0.6rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 3px 9px;
-      border-radius: 20px;
-      margin-top: 2px;
-    }
-    .jmap-lane.traditional .node-badge {
-      color: #c47070;
-      background: rgba(179,90,90,0.1);
-      border: 1px solid rgba(179,90,90,0.18);
-    }
-    .jmap-lane.lz .node-badge {
-      color: var(--gold);
-      background: rgba(201,168,76,0.08);
-      border: 1px solid rgba(201,168,76,0.2);
-    }
-
-    /* Connector arrow */
-    .jmap-connector {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .hero-visual {
       position: relative;
+      min-height: 560px;
+    }
+
+    .screen-stack {
+      position: absolute;
+      inset: 0;
+    }
+
+    .screen-shot {
+      position: absolute;
+      overflow: hidden;
+      border: 1px solid rgba(17, 17, 15, 0.12);
+      border-radius: 34px;
+      box-shadow: var(--shadow);
+      background: var(--white);
+    }
+
+    .screen-shot img {
+      width: 100%;
       height: 100%;
-      min-height: 44px;
-    }
-    .jmap-connector::before {
-      content: '';
-      position: absolute;
-      left: 2px; right: 12px;
-      top: 50%; height: 1px;
-      transform: translateY(-50%);
-    }
-    .jmap-connector::after {
-      content: '›';
-      position: absolute;
-      right: 2px;
-      font-size: 1.1rem;
-      line-height: 1;
-    }
-    .jmap-lane.traditional .jmap-connector::before {
-      background: repeating-linear-gradient(90deg, rgba(122,42,42,0.5) 0, rgba(122,42,42,0.5) 4px, transparent 4px, transparent 9px);
-    }
-    .jmap-lane.traditional .jmap-connector::after { color: rgba(122,42,42,0.6); }
-    .jmap-lane.lz .jmap-connector::before { background: rgba(201,168,76,0.35); }
-    .jmap-lane.lz .jmap-connector::after { color: var(--gold); }
-
-    /* VS divider row */
-    .jmap-vs-row {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      max-width: 1140px;
-      margin: 4px auto;
-    }
-    .jmap-vs-line {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border), transparent);
-    }
-    .jmap-vs-badge {
-      width: 34px; height: 34px;
-      border-radius: 50%;
-      border: 1px solid rgba(201,168,76,0.4);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.58rem;
-      letter-spacing: 0.1em;
-      color: var(--gold);
-      flex-shrink: 0;
+      object-fit: cover;
     }
 
-    /* Outcome cards */
-    .jmap-outcomes {
+    .screen-shot.primary {
+      top: 26px;
+      right: 0;
+      width: min(94%, 470px);
+      height: 320px;
+      transform: rotate(2deg);
+    }
+
+    .screen-shot.secondary {
+      left: 0;
+      bottom: 52px;
+      width: min(68%, 330px);
+      height: 250px;
+      transform: rotate(-5deg);
+    }
+
+    .screen-shot.phone {
+      right: 30px;
+      bottom: 0;
+      width: 162px;
+      height: 326px;
+      border-radius: 40px;
+      transform: rotate(7deg);
+    }
+
+    .floating-note {
+      position: absolute;
+      left: 22px;
+      top: 0;
+      width: min(78%, 330px);
+      padding: 22px;
+      color: var(--white);
+      border-radius: 30px;
+      background: var(--blue);
+      box-shadow: var(--shadow);
+      transform: rotate(-3deg);
+    }
+
+    .floating-note strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+      letter-spacing: 0;
+    }
+
+    .floating-note span {
+      display: block;
+      color: rgba(255, 253, 247, 0.78);
+      font-size: 0.92rem;
+    }
+
+    section {
+      padding: clamp(72px, 9vw, 120px) 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-heading {
       display: grid;
-      grid-template-columns: 96px 1fr 1fr;
-      gap: 20px;
-      max-width: 1140px;
-      margin: 40px auto 0;
+      grid-template-columns: 0.75fr 1.25fr;
+      gap: clamp(28px, 6vw, 84px);
+      align-items: end;
+      margin-bottom: clamp(34px, 5vw, 62px);
+    }
+
+    .section-kicker {
+      color: var(--green);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin-bottom: 0;
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: 5.2rem;
+      font-weight: 400;
+      line-height: 0.94;
+      letter-spacing: 0;
+    }
+
+    .section-intro {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .flow-step {
+      min-height: 268px;
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 42px;
+      background: rgba(255, 253, 247, 0.58);
+    }
+
+    .flow-step:nth-child(2) { margin-top: 34px; background: rgba(232, 236, 228, 0.72); }
+    .flow-step:nth-child(3) { margin-top: 68px; background: rgba(201, 134, 91, 0.14); }
+    .flow-step:nth-child(4) { margin-top: 102px; background: rgba(36, 76, 124, 0.1); }
+
+    .step-number {
+      display: block;
+      margin-bottom: 42px;
+      color: var(--clay);
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: 3.4rem;
+      line-height: 0.8;
+    }
+
+    .flow-step h3,
+    .capability h3,
+    .project-copy h3 {
+      margin-bottom: 12px;
+      font-size: 1.15rem;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    .flow-step p,
+    .capability p,
+    .project-copy p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .capabilities {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .capability {
+      padding: 30px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .capability-mark {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 22px;
+      color: var(--white);
+      border-radius: 50%;
+      background: var(--ink);
+      font-weight: 900;
+    }
+
+    .projects {
+      display: grid;
+      gap: 36px;
+    }
+
+    .project {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: clamp(24px, 5vw, 64px);
+      align-items: center;
+      padding: clamp(22px, 4vw, 44px);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 50px;
+      background: rgba(255, 253, 247, 0.62);
+      box-shadow: 0 20px 70px rgba(32, 31, 26, 0.08);
+    }
+
+    .project:nth-child(even) {
+      grid-template-columns: 0.9fr 1.1fr;
+      background: rgba(232, 236, 228, 0.7);
+    }
+
+    .project:nth-child(even) .project-media { order: 2; }
+
+    .project-media {
+      overflow: hidden;
+      border-radius: 38px;
+      background: #171713;
+      box-shadow: var(--shadow);
+    }
+
+    .project-media img {
+      width: 100%;
+      height: min(48vw, 420px);
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .project-copy {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .project-meta {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .project-meta span {
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(17, 17, 15, 0.06);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .project-copy h3 {
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: 4rem;
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+
+    .project-link {
+      margin-top: 26px;
+      color: var(--blue);
+      font-size: 0.9rem;
+      font-weight: 900;
+    }
+
+    .brief-section {
+      padding-bottom: clamp(84px, 10vw, 130px);
+    }
+
+    .brief-wrap {
+      display: grid;
+      grid-template-columns: 0.82fr 1.18fr;
+      gap: clamp(28px, 6vw, 72px);
       align-items: start;
     }
-    .jmap-outcomes-spacer { /* empty left column to align with flow */ }
-    .outcome-card {
-      padding: 24px 28px;
-      border-radius: 6px;
-    }
-    .outcome-card.pain {
-      background: rgba(40,18,18,0.55);
-      border: 1px solid rgba(122,42,42,0.35);
-    }
-    .outcome-card.lz {
-      background: rgba(201,168,76,0.04);
-      border: 1px solid rgba(201,168,76,0.22);
-    }
-    .outcome-quote {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 0.88rem;
-      line-height: 1.55;
-      margin-bottom: 14px;
-    }
-    .outcome-card.pain .outcome-quote { color: #b35a5a; }
-    .outcome-card.lz .outcome-quote { color: var(--gold); }
-    .outcome-tags {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-    .outcome-tag {
-      font-size: 0.6rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 3px 9px;
-      border-radius: 2px;
-    }
-    .outcome-card.pain .outcome-tag { background: rgba(179,90,90,0.1); color: #c47070; }
-    .outcome-card.lz .outcome-tag { background: rgba(201,168,76,0.1); color: var(--gold); }
 
-    /* Journey pull quote */
-    .journey-quote {
-      max-width: 720px;
-      margin: 72px auto 0;
-      text-align: center;
+    .brief-aside {
+      position: sticky;
+      top: 112px;
     }
-    .journey-quote blockquote {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
-      font-weight: 400;
-      color: var(--gold);
-      line-height: 1.55;
-      position: relative;
-      padding: 0 40px;
-    }
-    .journey-quote blockquote::before,
-    .journey-quote blockquote::after {
-      content: '"';
-      font-size: 3rem;
-      color: rgba(201,168,76,0.25);
-      position: absolute;
-      line-height: 1;
-    }
-    .journey-quote blockquote::before { left: 0; top: -8px; }
-    .journey-quote blockquote::after { right: 0; bottom: -20px; content: '"'; }
 
-    /* ─── HOW IT WORKS ──────────────────────────── */
-    #how {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .how-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      max-width: 1100px;
-      margin: 64px auto 0;
-      background: var(--border);
-    }
-    .how-card {
-      background: var(--surface);
-      padding: 48px 40px;
-      border-top: 2px solid transparent;
-      transition: border-color 0.3s, background 0.3s;
-      cursor: default;
-    }
-    .how-card:hover {
-      border-top-color: var(--gold);
-      background: #141414;
-    }
-    .how-num {
-      font-family: 'Playfair Display', serif;
-      font-size: 3rem;
-      font-weight: 400;
-      color: rgba(201,168,76,0.2);
-      line-height: 1;
-      margin-bottom: 32px;
-      transition: color 0.3s;
-    }
-    .how-card:hover .how-num { color: rgba(201,168,76,0.4); }
-    .how-card-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.25rem;
-      font-weight: 500;
-      margin-bottom: 14px;
-      color: var(--white);
-    }
-    .how-card-body {
-      font-size: 0.88rem;
+    .brief-aside p {
       color: var(--muted);
-      line-height: 1.75;
+      font-size: 1.06rem;
+      line-height: 1.7;
     }
 
-    /* ─── WHO WE SERVE ──────────────────────────── */
-    #serve {
-      background: var(--bg);
-    }
-    .serve-inner {
-      max-width: 760px;
-      margin: 0 auto;
-      text-align: center;
-    }
-    .serve-body {
-      font-size: 0.95rem;
-      color: var(--muted);
-      line-height: 1.85;
-      margin: 24px auto;
-      max-width: 600px;
-    }
-    .serve-pullquote {
-      margin-top: 64px;
-      padding: 48px;
-      border: 1px solid var(--border);
-      position: relative;
-    }
-    .serve-pullquote::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 48px; right: 48px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    }
-    .serve-pullquote p {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: clamp(1.1rem, 2vw, 1.5rem);
-      color: var(--white);
-      line-height: 1.6;
-    }
-    .serve-pullquote cite {
-      display: block;
-      margin-top: 20px;
-      font-size: 0.72rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      font-style: normal;
-    }
-
-    /* ─── BRAND MOMENT ──────────────────────────── */
-    #brand {
-      background: #080808;
-      padding: 140px 48px;
-    }
-    .brand-inner {
-      text-align: center;
-    }
-    .brand-locker-wrap {
+    .contact-line {
       display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 120px; height: 120px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
-      margin-bottom: 32px;
-      animation: pulse-glow 3s ease-in-out infinite;
+      margin-top: 22px;
+      color: var(--blue);
+      font-weight: 900;
+      word-break: break-word;
     }
-    @keyframes pulse-glow {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0); }
-      50% { box-shadow: 0 0 48px 12px rgba(201,168,76,0.07); }
+
+    .brief-form {
+      padding: clamp(24px, 4vw, 44px);
+      border: 1px solid var(--line);
+      border-radius: 50px;
+      background: rgba(255, 253, 247, 0.72);
+      box-shadow: var(--shadow);
     }
-    .brand-name {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.4rem, 5vw, 4rem);
-      font-weight: 400;
-      letter-spacing: 0.08em;
-      margin-bottom: 20px;
-      color: var(--white);
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
     }
-    .brand-tagline {
-      font-size: 0.68rem;
-      letter-spacing: 0.35em;
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field.full { grid-column: 1 / -1; }
+
+    label {
+      color: #43443e;
+      font-size: 0.82rem;
+      font-weight: 900;
+      letter-spacing: 0;
       text-transform: uppercase;
-      color: var(--gold);
-    }
-    .brand-tagline span {
-      margin: 0 12px;
-      opacity: 0.4;
     }
 
-    /* ─── CTA ───────────────────────────────────── */
-    #cta {
-      background: linear-gradient(180deg, #0A0A0A 0%, #0D0B08 100%);
-      padding: 140px 48px;
-      text-align: center;
-      border-top: 1px solid var(--border);
-    }
-    .cta-headline {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 400;
-      line-height: 1.2;
-      margin-bottom: 20px;
-    }
-    .cta-sub {
-      font-size: 0.92rem;
-      color: var(--muted);
-      margin-bottom: 48px;
-    }
-    .cta-note {
-      display: block;
-      margin-top: 20px;
-      font-size: 0.72rem;
-      color: var(--muted);
-      letter-spacing: 0.1em;
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid rgba(17, 17, 15, 0.14);
+      border-radius: 24px;
+      color: var(--ink);
+      background: rgba(255, 253, 247, 0.9);
+      outline: none;
+      padding: 16px 18px;
+      transition: border-color 180ms ease, box-shadow 180ms ease;
     }
 
-    /* ─── FOOTER ────────────────────────────────── */
-    footer {
-      background: #080808;
-      padding: 40px 48px;
-      border-top: 1px solid var(--border);
-      position: relative;
+    textarea {
+      min-height: 180px;
+      resize: vertical;
     }
-    footer::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%);
-      opacity: 0.3;
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: rgba(36, 76, 124, 0.58);
+      box-shadow: 0 0 0 4px rgba(36, 76, 124, 0.12);
     }
-    .footer-inner {
-      max-width: 1100px;
-      margin: 0 auto;
+
+    .submit-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .submit-row .primary-btn {
+      border: 0;
+      cursor: pointer;
+    }
+
+    .form-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .site-footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 24px;
-    }
-    .footer-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
-    .footer-brand-text {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      font-weight: 500;
-      color: var(--white);
-    }
-    .footer-links {
-      display: flex;
-      gap: 32px;
-    }
-    .footer-links a {
-      font-size: 0.78rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      gap: 20px;
+      padding: 28px clamp(18px, 5vw, 58px);
       color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .footer-links a:hover { color: var(--white); }
-    .footer-copy {
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-    .footer-crafted {
-      display: block;
-      text-align: center;
-      margin-top: 32px;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(136,136,128,0.4);
+      border-top: 1px solid var(--line);
+      font-size: 0.88rem;
     }
 
-    /* ─── RESPONSIVE ────────────────────────────── */
-    @media (max-width: 900px) {
-      #navbar { padding: 0 24px; }
-      section { padding: 80px 24px; }
-      #journey { padding: 80px 24px; }
-      #brand { padding: 100px 24px; }
-      #cta { padding: 100px 24px; }
-      footer { padding: 32px 24px; }
+    @media (max-width: 980px) {
+      .nav-links a:not(.nav-cta) { display: none; }
 
-      .journey-grid,
-      .journey-summary {
+      .hero,
+      .section-heading,
+      .brief-wrap {
         grid-template-columns: 1fr;
       }
-      .journey-vs {
-        flex-direction: row;
-        padding: 24px 0;
-        justify-content: center;
-        gap: 16px;
-      }
-      .vs-line-top,
-      .vs-line-bot {
-        min-height: 1px;
-        width: 60px;
-        height: 1px !important;
-        background: linear-gradient(to right, transparent, var(--gold)) !important;
-        flex: none;
-      }
-      .vs-line-bot {
-        background: linear-gradient(to right, var(--gold), transparent) !important;
-      }
-      .journey-summary { margin-top: 16px; }
-      .summary-center { display: none; }
 
-      .jmap-lane { flex-direction: column; align-items: stretch; gap: 16px; padding: 20px 0; }
-      .jmap-label { flex-direction: row; width: 100%; justify-content: flex-start; gap: 10px; }
-      .jmap-flow { grid-template-columns: 1fr; grid-template-rows: auto 28px auto 28px auto 28px auto; }
-      .jmap-connector { height: 28px; }
-      .jmap-connector::before { left: 50%; right: auto; top: 0; bottom: 8px; width: 1px; height: auto; transform: none; background: none !important; }
-      .jmap-lane.traditional .jmap-connector::before { background: repeating-linear-gradient(180deg, rgba(122,42,42,0.5) 0, rgba(122,42,42,0.5) 4px, transparent 4px, transparent 9px) !important; }
-      .jmap-lane.lz .jmap-connector::before { background: rgba(201,168,76,0.35) !important; width: 1px; }
-      .jmap-connector::after { content: ''; }
-      .jmap-outcomes { grid-template-columns: 1fr; }
-      .jmap-outcomes-spacer { display: none; }
-      .how-grid { grid-template-columns: 1fr; }
-      .how-card { padding: 40px 28px; }
-
-      .cred-item { padding: 6px 18px; }
-
-      .footer-inner { flex-direction: column; align-items: flex-start; }
-
-      .nav-brand-text { font-size: 1rem; }
+      .hero { padding-top: 112px; }
+      h1 { font-size: 6.2rem; }
+      h2 { font-size: 4.2rem; }
+      .hero-copy { font-size: 1.12rem; }
+      .project-copy h3 { font-size: 3.4rem; }
+      .hero-visual { min-height: 470px; }
+      .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .flow-step:nth-child(n) { margin-top: 0; }
+      .capabilities { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .project,
+      .project:nth-child(even) { grid-template-columns: 1fr; }
+      .project:nth-child(even) .project-media { order: 0; }
+      .brief-aside { position: static; }
     }
 
-    @media (max-width: 480px) {
-      .nav-cta span { display: none; }
-      .nav-cta::after { content: 'Book'; }
-      .hero-actions { flex-direction: column; align-items: center; }
-      .btn-primary, .btn-ghost { width: 240px; text-align: center; }
-      .cred-dot { display: none; }
-      .cred-item { padding: 6px 12px; }
-    }
-
-    /* ─── LIGHT MODE ────────────────────────────── */
-    [data-theme="light"] {
-      --bg:          #FAFAF7;
-      --surface:     #F2EFE8;
-      --border:      #E0DDD6;
-      --white:       #1A1A18;
-      --muted:       #7A7A72;
-      --pain:        #fdf0f0;
-      --pain-border: #c49090;
-    }
-    [data-theme="light"] body { background: var(--bg); color: var(--white); }
-    [data-theme="light"] #navbar { background: rgba(250,250,247,0.92); }
-    [data-theme="light"] #navbar.scrolled { border-bottom-color: rgba(201,168,76,0.35); }
-    [data-theme="light"] .nav-brand-text { color: var(--white); }
-    [data-theme="light"] .hero-ring { border-color: rgba(201,168,76,0.09); }
-    [data-theme="light"] .hero-glow { background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%); }
-    [data-theme="light"] .btn-ghost { color: var(--white); border-color: rgba(26,26,24,0.3); }
-    [data-theme="light"] .btn-ghost:hover { border-color: var(--white); }
-    [data-theme="light"] #cred { background: var(--surface); }
-
-    /* Journey map — light mode */
-    [data-theme="light"] #journey { background: var(--bg); }
-    [data-theme="light"] .jmap-lane.traditional .jmap-node {
-      background: rgba(210,170,170,0.18);
-      border-color: rgba(180,80,80,0.22);
-    }
-    [data-theme="light"] .jmap-lane.lz .jmap-node {
-      background: rgba(201,168,76,0.07);
-      border-color: rgba(201,168,76,0.28);
-    }
-    [data-theme="light"] .jmap-lane.traditional .node-icon { background: rgba(180,80,80,0.1); }
-    [data-theme="light"] .jmap-lane.lz .node-icon { background: rgba(201,168,76,0.14); }
-    [data-theme="light"] .node-title { color: var(--white); }
-    [data-theme="light"] .jmap-lane.traditional .node-badge {
-      color: #9a3a3a;
-      background: rgba(180,80,80,0.08);
-      border-color: rgba(180,80,80,0.18);
-    }
-    [data-theme="light"] .jmap-lane.traditional .jmap-connector::before {
-      background: repeating-linear-gradient(90deg, rgba(160,70,70,0.5) 0, rgba(160,70,70,0.5) 4px, transparent 4px, transparent 9px) !important;
-    }
-    [data-theme="light"] .jmap-lane.traditional .jmap-connector::after { color: rgba(160,70,70,0.7); }
-    [data-theme="light"] .jmap-vs-line { background: linear-gradient(90deg, transparent, var(--border), transparent); }
-    [data-theme="light"] .outcome-card.pain {
-      background: rgba(210,170,170,0.18);
-      border-color: rgba(180,80,80,0.22);
-    }
-    [data-theme="light"] .outcome-card.lz {
-      background: rgba(201,168,76,0.07);
-      border-color: rgba(201,168,76,0.28);
-    }
-    [data-theme="light"] .outcome-card.pain .outcome-quote { color: #9a3a3a; }
-    [data-theme="light"] .outcome-card.pain .outcome-tag { background: rgba(180,80,80,0.09); color: #9a3a3a; }
-    [data-theme="light"] .journey-quote blockquote { color: #9a7820; }
-    [data-theme="light"] .journey-quote blockquote::before,
-    [data-theme="light"] .journey-quote blockquote::after { color: rgba(154,120,32,0.22); }
-
-    [data-theme="light"] .how-card { background: var(--surface); }
-    [data-theme="light"] .how-card:hover { background: #E8E4DA; }
-    [data-theme="light"] .how-card-title { color: var(--white); }
-    [data-theme="light"] #serve { background: var(--bg); }
-    [data-theme="light"] .serve-pullquote { border-color: var(--border); }
-    [data-theme="light"] .serve-pullquote p { color: var(--white); }
-    [data-theme="light"] #brand { background: #F0EDE6; }
-    [data-theme="light"] .brand-name { color: var(--white); }
-    [data-theme="light"] #cta { background: linear-gradient(180deg, #FAFAF7 0%, #F0EDE6 100%); border-color: var(--border); }
-    [data-theme="light"] .cta-headline { color: var(--white); }
-    [data-theme="light"] footer { background: #EEEAE3; border-color: var(--border); }
-    [data-theme="light"] .footer-brand-text { color: var(--white); }
-    [data-theme="light"] .footer-links a:hover { color: var(--white); }
-    [data-theme="light"] .footer-crafted { color: rgba(100,100,90,0.35); }
-    [data-theme="light"] .how-grid { background: var(--border); }
-    [data-theme="light"] .section-title { color: var(--white); }
-    [data-theme="light"] .hero-headline { color: var(--white); }
-
-    /* ─── THEME TOGGLE ──────────────────────────── */
-    .theme-toggle {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      border: 1px solid rgba(201,168,76,0.35);
-      background: transparent;
-      cursor: pointer;
-      color: var(--gold);
-      transition: background 0.2s, border-color 0.2s;
-      flex-shrink: 0;
-    }
-    .theme-toggle:hover { background: var(--gold-dim); border-color: var(--gold); }
-    .theme-toggle svg { display: block; }
-    .icon-sun { display: none; }
-    .icon-moon { display: block; }
-    [data-theme="light"] .icon-sun { display: block; }
-    [data-theme="light"] .icon-moon { display: none; }
-
-    /* ─── HERO LOGO MARK ────────────────────────── */
-    .hero-logo-mark {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 48px;
-    }
-    .hero-logo-mark svg {
-      filter: drop-shadow(0 0 18px rgba(201,168,76,0.18));
-    }
-    .hero-logo-mark-text {
-      font-family: 'Playfair Display', serif;
-      font-size: 0.72rem;
-      font-weight: 400;
-      letter-spacing: 0.55em;
-      text-transform: uppercase;
-      color: var(--gold);
-      opacity: 0.7;
-    }
-    .hero-logo-divider {
-      width: 1px;
-      height: 32px;
-      background: linear-gradient(to bottom, var(--gold), transparent);
-      margin: 0 auto;
-      opacity: 0.4;
+    @media (max-width: 680px) {
+      .site-header { padding: 14px 18px; }
+      .nav-cta { display: none; }
+      .brand span:last-child { font-size: 0.95rem; }
+      .page-shell { width: calc(100% - 28px); }
+      .hero > div:first-child { max-width: 22.5rem; }
+      h1 { font-size: 3.35rem; line-height: 0.94; }
+      h2 { font-size: 3.18rem; }
+      .hero-copy { font-size: 1rem; }
+      .project-copy h3 { font-size: 2.8rem; }
+      .hero-visual { min-height: 420px; }
+      .floating-note { left: 0; width: 84%; }
+      .screen-shot.primary { top: 92px; width: 95%; height: 230px; }
+      .screen-shot.secondary { bottom: 28px; width: 68%; height: 178px; }
+      .screen-shot.phone { right: 4px; width: 126px; height: 252px; }
+      .flow,
+      .capabilities,
+      .form-grid { grid-template-columns: 1fr; }
+      .project,
+      .brief-form { border-radius: 34px; }
+      .project-media { border-radius: 28px; }
+      .project-media img { height: 250px; }
+      .site-footer { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
 <body>
-
-  <!-- ═══════════════════════════════════════════ NAVBAR -->
-  <nav id="navbar">
-    <a href="#" class="nav-brand">
-      <!-- Locker SVG -->
-      <svg width="28" height="32" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 14V9.5C8 6.46 10.24 4 13 4H15C17.76 4 20 6.46 20 9.5V14" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
-        <rect x="3.75" y="14" width="20.5" height="14" rx="2.25" stroke="#C9A84C" stroke-width="1.5"/>
-        <circle cx="14" cy="21.5" r="2.75" stroke="#C9A84C" stroke-width="1.4"/>
-        <line x1="14" y1="24.25" x2="14" y2="26.5" stroke="#C9A84C" stroke-width="1.4" stroke-linecap="round"/>
-      </svg>
-      <span class="nav-brand-text">Locker Zer<span class="degree">°</span></span>
+  <header class="site-header" id="site-header">
+    <a class="brand" href="#top" aria-label="Locker Zero home">
+      <span class="brand-mark">L0</span>
+      <span>Locker Zero</span>
     </a>
-    <div style="display:flex;align-items:center;gap:14px;">
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">
-        <!-- Moon (dark mode indicator) -->
-        <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
-        </svg>
-        <!-- Sun (light mode indicator) -->
-        <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-        </svg>
-      </button>
-      <a href="#cta" class="nav-cta"><span>Book a Consultation</span></a>
-    </div>
-  </nav>
+    <nav class="nav-links" aria-label="Primary navigation">
+      <a href="#process">Process</a>
+      <a href="#builds">Examples</a>
+      <a href="#brief" class="nav-cta">Start a brief</a>
+    </nav>
+  </header>
 
-  <!-- ═══════════════════════════════════════════ HERO -->
-  <section id="hero">
-    <div class="hero-glow"></div>
-    <div class="hero-ring r1"></div>
-    <div class="hero-ring r2"></div>
-    <div class="hero-ring r3"></div>
-
-    <p class="hero-eyebrow fade-up">Jewelry Consulting</p>
-    <h1 class="hero-headline fade-up d2">
-      Jewelry,<br><em>Refined.</em>
-    </h1>
-    <p class="hero-sub fade-up d2">
-      Custom jewelry consulting for those who demand perfection. Trusted by NFL athletes and elite clientele for over a decade.
-    </p>
-    <div class="hero-actions fade-up d3">
-      <a href="#journey" class="btn-primary">Start Your Journey</a>
-      <a href="#how" class="btn-ghost">Learn More</a>
-    </div>
-    <div class="hero-divider fade-up d4"></div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════ CREDIBILITY -->
-  <div id="cred">
-    <div class="cred-inner">
-      <div class="cred-item fade-up"><span>10+</span> Years Experience</div>
-      <div class="cred-dot fade-up d1"></div>
-      <div class="cred-item fade-up d1">NFL &amp; Sports Clientele</div>
-      <div class="cred-dot fade-up d2"></div>
-      <div class="cred-item fade-up d2"><span>500+</span> Custom Pieces</div>
-      <div class="cred-dot fade-up d3"></div>
-      <div class="cred-item fade-up d3">Trusted Supplier Network</div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════ JOURNEY MAP -->
-  <section id="journey">
-    <div class="journey-header fade-up">
-      <span class="section-eyebrow">The Journey</span>
-      <h2 class="section-title">Two Paths. One Clear Choice.</h2>
-      <p class="section-sub">See the difference between going it alone and having Locker Zer° in your corner.</p>
-    </div>
-
-    <div class="jmap-wrap">
-
-      <!-- ── TRADITIONAL LANE ── -->
-      <div class="jmap-lane traditional fade-up d1">
-        <div class="jmap-label">
-          <div class="jmap-label-icon">✕</div>
-          <span class="jmap-label-text">Traditional Way</span>
-        </div>
-        <div class="jmap-flow">
-
-          <div class="jmap-node">
-            <div class="node-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b35a5a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-            </div>
-            <div class="node-title">Walk into a Store</div>
-            <div class="node-desc">Shown what's in stock, not what you want</div>
-            <div class="node-badge">Stressful</div>
+  <main id="top">
+    <div class="page-shell">
+      <section class="hero" aria-labelledby="hero-title">
+        <div>
+          <p class="eyebrow">Mockup in one day</p>
+          <h1 id="hero-title">Your website idea, designed before momentum fades.</h1>
+          <p class="hero-copy">Tell Locker Zero what you want to build. You get a first mockup within a day, then we work together to ship a real website with login, metrics tracking, reporting, and payment integration when your business needs it.</p>
+          <div class="hero-actions">
+            <a class="primary-btn" href="#brief">Write your idea</a>
+            <a class="secondary-btn" href="#builds">See example work</a>
           </div>
-
-          <div class="jmap-connector"></div>
-
-          <div class="jmap-node">
-            <div class="node-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b35a5a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-            </div>
-            <div class="node-title">$5,000+ Quote</div>
-            <div class="node-desc">Sticker shock, zero pricing transparency</div>
-            <div class="node-badge">Overpriced</div>
-          </div>
-
-          <div class="jmap-connector"></div>
-
-          <div class="jmap-node">
-            <div class="node-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b35a5a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            </div>
-            <div class="node-title">Weeks of Silence</div>
-            <div class="node-desc">No updates, no visibility, dates slip</div>
-            <div class="node-badge">Uncertain</div>
-          </div>
-
-          <div class="jmap-connector"></div>
-
-          <div class="jmap-node">
-            <div class="node-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b35a5a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-            </div>
-            <div class="node-title">Disappointing Result</div>
-            <div class="node-desc">Doesn't match your vision. No recourse.</div>
-            <div class="node-badge">Deflated</div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- ── VS DIVIDER ── -->
-      <div class="jmap-vs-row">
-        <div class="jmap-vs-line"></div>
-        <div class="jmap-vs-badge">vs</div>
-        <div class="jmap-vs-line"></div>
-      </div>
-
-      <!-- ── LOCKER ZER° LANE ── -->
-      <div class="jmap-lane lz fade-up d2">
-        <div class="jmap-label">
-          <div class="jmap-label-icon">✓</div>
-          <span class="jmap-label-text">Locker Zer°</span>
-        </div>
-        <div class="jmap-flow">
-
-          <div class="jmap-node">
-            <div class="node-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            </div>
-            <div class="node-title">Share Your Vision</div>
-            <div class="node-desc">One honest conversation. We listen, not sell.</div>
-            <div class="node-badge">Zero pressure</div>
-          </div>
-
-          <div class="jmap-connector"></div>
-
-          <div class="jmap-node">
-            <div class="node-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-            </div>
-            <div class="node-title">We Work Our Network</div>
-            <div class="node-desc">Multiple suppliers contacted, best price found</div>
-            <div class="node-badge">Best pricing</div>
-          </div>
-
-          <div class="jmap-connector"></div>
-
-          <div class="jmap-node">
-            <div class="node-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-            </div>
-            <div class="node-title">Iterative Revisions</div>
-            <div class="node-desc">Tweaks managed by us until it's exactly right</div>
-            <div class="node-badge">Perfect fit</div>
-          </div>
-
-          <div class="jmap-connector"></div>
-
-          <div class="jmap-node">
-            <div class="node-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
-            </div>
-            <div class="node-title">Delivered. Perfect.</div>
-            <div class="node-desc">On time, fair price, exactly as envisioned</div>
-            <div class="node-badge">Faster delivery</div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- ── OUTCOME CARDS ── -->
-      <div class="jmap-outcomes fade-up d3">
-        <div class="jmap-outcomes-spacer"></div>
-        <div class="outcome-card pain">
-          <div class="outcome-quote">"Overpaid. Underwhelmed. Months wasted."</div>
-          <div class="outcome-tags">
-            <span class="outcome-tag">Overpriced</span>
-            <span class="outcome-tag">Long wait</span>
-            <span class="outcome-tag">No recourse</span>
-            <span class="outcome-tag">Vision ignored</span>
+          <div class="proof-strip" aria-label="Service highlights">
+            <span>24-hour first mockup</span>
+            <span>Full-stack builds</span>
+            <span>Auth, analytics, payments</span>
           </div>
         </div>
-        <div class="outcome-card lz">
-          <div class="outcome-quote">"Confident. Delighted. Time saved."</div>
-          <div class="outcome-tags">
-            <span class="outcome-tag">Fair pricing</span>
-            <span class="outcome-tag">Faster delivery</span>
-            <span class="outcome-tag">Expert-managed</span>
-            <span class="outcome-tag">Exactly as envisioned</span>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="floating-note">
+            <strong>From rough idea to working product.</strong>
+            <span>Submit the brief, review the mockup, refine the flow, launch the site.</span>
+          </div>
+          <div class="screen-stack">
+            <div class="screen-shot primary"><img src="assets/awaz-dark-screenshot.png" alt="" /></div>
+            <div class="screen-shot secondary"><img src="assets/royalty-screenshot.png" alt="" /></div>
+            <div class="screen-shot phone"><img src="assets/seline-home-dark.png" alt="" /></div>
           </div>
         </div>
-      </div>
+      </section>
 
-    </div>
+      <section id="process" aria-labelledby="process-title">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">How it works</p>
+            <h2 id="process-title">A simple path from idea to launch.</h2>
+          </div>
+          <p class="section-intro">Locker Zero is built for founders, operators, service businesses, and side-project builders who know what they want but need a sharp product partner to make it concrete.</p>
+        </div>
 
-    <!-- Pull quote -->
-    <div class="journey-quote fade-up d4">
-      <blockquote>
-        We take the headache so you can focus on the moment that matters.
-      </blockquote>
-    </div>
-  </section>
+        <div class="flow">
+          <article class="flow-step">
+            <span class="step-number">01</span>
+            <h3>Send the idea</h3>
+            <p>Write what the website should do, who it is for, and any references you already like.</p>
+          </article>
+          <article class="flow-step">
+            <span class="step-number">02</span>
+            <h3>Get a mockup</h3>
+            <p>Within a day, you receive a visual direction that turns the request into something you can react to.</p>
+          </article>
+          <article class="flow-step">
+            <span class="step-number">03</span>
+            <h3>Shape the product</h3>
+            <p>We refine structure, pages, content, workflows, and the product details that make the site useful.</p>
+          </article>
+          <article class="flow-step">
+            <span class="step-number">04</span>
+            <h3>Build and launch</h3>
+            <p>The final site can include authentication, dashboards, payment flows, reports, and deployment.</p>
+          </article>
+        </div>
+      </section>
 
-  <!-- ═══════════════════════════════════════════ HOW IT WORKS -->
-  <section id="how">
-    <div class="centered fade-up">
-      <span class="section-eyebrow">The Process</span>
-      <h2 class="section-title">How It Works</h2>
-      <p class="section-sub">Three simple steps stand between you and a piece you'll treasure forever.</p>
-    </div>
+      <section id="capabilities" aria-labelledby="capabilities-title">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">What can be built</p>
+            <h2 id="capabilities-title">More than a landing page.</h2>
+          </div>
+          <p class="section-intro">The service starts with design clarity, then scales into the systems your website needs to operate like a business tool.</p>
+        </div>
 
-    <div class="how-grid">
-      <div class="how-card fade-up d1">
-        <div class="how-num">01</div>
-        <h3 class="how-card-title">Share Your Vision</h3>
-        <p class="how-card-body">Tell us what you want. Budget, style, occasion, meaning. We listen without judgment, without pressure. Your vision is the starting point — not our inventory.</p>
-      </div>
-      <div class="how-card fade-up d2">
-        <div class="how-num">02</div>
-        <h3 class="how-card-title">We Handle Everything</h3>
-        <p class="how-card-body">Supplier sourcing, competitive quotes, design revisions, quality checks — all managed by us. You stay informed at every step without having to manage any of it.</p>
-      </div>
-      <div class="how-card fade-up d3">
-        <div class="how-num">03</div>
-        <h3 class="how-card-title">Receive Perfection</h3>
-        <p class="how-card-body">Your custom piece, delivered faster than you'd expect, at a price that's transparent and fair. Exactly what you imagined — ready for the moment you planned it for.</p>
-      </div>
-    </div>
-  </section>
+        <div class="capabilities">
+          <article class="capability">
+            <span class="capability-mark">A</span>
+            <h3>User authentication</h3>
+            <p>Account creation, sign-in flows, protected areas, admin access, and role-aware experiences.</p>
+          </article>
+          <article class="capability">
+            <span class="capability-mark">M</span>
+            <h3>Metrics tracking</h3>
+            <p>Event tracking, conversion visibility, user activity, and performance signals that matter.</p>
+          </article>
+          <article class="capability">
+            <span class="capability-mark">R</span>
+            <h3>Reporting dashboards</h3>
+            <p>Operational views, business summaries, downloadable reports, and clean data presentation.</p>
+          </article>
+          <article class="capability">
+            <span class="capability-mark">P</span>
+            <h3>Payment systems</h3>
+            <p>Checkout, subscription, customer portal, and payment provider integrations for real revenue flows.</p>
+          </article>
+          <article class="capability">
+            <span class="capability-mark">C</span>
+            <h3>Content structure</h3>
+            <p>Homepage, service pages, product flows, copy direction, and information architecture.</p>
+          </article>
+          <article class="capability">
+            <span class="capability-mark">L</span>
+            <h3>Launch support</h3>
+            <p>Responsive implementation, deployment, analytics setup, and iteration after the first version ships.</p>
+          </article>
+        </div>
+      </section>
 
-  <!-- ═══════════════════════════════════════════ WHO WE SERVE -->
-  <section id="serve">
-    <div class="serve-inner">
-      <div class="fade-up">
-        <span class="section-eyebrow">Our Clientele</span>
-        <h2 class="section-title">Built for Those<br>Who Expect the Best</h2>
-      </div>
-      <p class="serve-body fade-up d1">
-        From NFL athletes celebrating championship seasons to executives marking life's biggest milestones, Locker Zer° has been the quiet partner behind some of the most exceptional custom pieces in the game. Our clients don't settle — and neither do we. Over a decade, over 500 custom pieces, and a reputation built entirely on trust.
-      </p>
-      <div class="serve-pullquote fade-up d2">
-        <p>"When it matters most, you need someone who cares as much as you do."</p>
-        <cite>— The Locker Zer° Standard</cite>
-      </div>
-    </div>
-  </section>
+      <section id="builds" aria-labelledby="builds-title">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Example work</p>
+            <h2 id="builds-title">Side projects that show the range.</h2>
+          </div>
+          <p class="section-intro">These projects from Ali Shah Amin’s portfolio show the kinds of digital products Locker Zero can help shape, design, and build.</p>
+        </div>
 
-  <!-- ═══════════════════════════════════════════ BRAND MOMENT -->
-  <section id="brand">
-    <div class="brand-inner fade-up">
-      <div class="brand-locker-wrap">
-        <!-- Large locker SVG -->
-        <svg width="56" height="64" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 14V9.5C8 6.46 10.24 4 13 4H15C17.76 4 20 6.46 20 9.5V14" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
-          <rect x="3.75" y="14" width="20.5" height="14" rx="2.25" stroke="#C9A84C" stroke-width="1.5"/>
-          <circle cx="14" cy="21.5" r="2.75" stroke="#C9A84C" stroke-width="1.4"/>
-          <line x1="14" y1="24.25" x2="14" y2="26.5" stroke="#C9A84C" stroke-width="1.4" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <h2 class="brand-name">Locker Zer<span class="degree">°</span></h2>
-      <p class="brand-tagline">
-        Precision
-        <span>·</span>
-        Trust
-        <span>·</span>
-        Craft
-      </p>
-    </div>
-  </section>
+        <div class="projects">
+          <article class="project">
+            <a class="project-media" href="https://awaz-drab.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Open Awaz">
+              <img src="assets/awaz-dark-screenshot.png" alt="Awaz website screenshot" />
+            </a>
+            <div class="project-copy">
+              <div class="project-meta"><span>Website</span><span>Active</span></div>
+              <h3>Awaz</h3>
+              <p>A quiet place to study the Quran, Torah, Bible, and Bhagavad Gita with structured, accessible content for readers exploring religious texts.</p>
+              <a class="project-link" href="https://awaz-drab.vercel.app/" target="_blank" rel="noopener noreferrer">View project</a>
+            </div>
+          </article>
 
-  <!-- ═══════════════════════════════════════════ CTA -->
-  <section id="cta">
-    <h2 class="cta-headline fade-up">
-      Ready to Wear<br><em style="font-family:'Playfair Display',serif;font-style:italic;">Something Truly Yours?</em>
-    </h2>
-    <p class="cta-sub fade-up d1">No commitment. Just a conversation about your vision.</p>
-    <div class="fade-up d2">
-      <a href="mailto:hello@lockerzero.com" class="btn-primary">Book Your Free Consultation</a>
-      <span class="cta-note">Available for custom pieces and consulting engagements</span>
-    </div>
-  </section>
+          <article class="project">
+            <a class="project-media" href="https://craft-swart-six.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Open Craft">
+              <img src="assets/craft-dark-screenshot.png" alt="Craft website screenshot" />
+            </a>
+            <div class="project-copy">
+              <div class="project-meta"><span>AI Tool</span><span>In progress</span></div>
+              <h3>Craft</h3>
+              <p>An image-to-video conversion concept that transforms static images into dynamic video content using modern AI models.</p>
+              <a class="project-link" href="https://craft-swart-six.vercel.app/" target="_blank" rel="noopener noreferrer">View project</a>
+            </div>
+          </article>
 
-  <!-- ═══════════════════════════════════════════ FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <a href="#" class="footer-brand">
-        <svg width="22" height="26" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 14V9.5C8 6.46 10.24 4 13 4H15C17.76 4 20 6.46 20 9.5V14" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
-          <rect x="3.75" y="14" width="20.5" height="14" rx="2.25" stroke="#C9A84C" stroke-width="1.5"/>
-          <circle cx="14" cy="21.5" r="2.75" stroke="#C9A84C" stroke-width="1.4"/>
-          <line x1="14" y1="24.25" x2="14" y2="26.5" stroke="#C9A84C" stroke-width="1.4" stroke-linecap="round"/>
-        </svg>
-        <span class="footer-brand-text">Locker Zer<span class="degree">°</span></span>
-      </a>
-      <nav class="footer-links">
-        <a href="#how">Services</a>
-        <a href="#serve">About</a>
-        <a href="#cta">Contact</a>
-      </nav>
-      <span class="footer-copy">© 2025 Locker Zer<span class="degree">°</span>. All rights reserved.</span>
+          <article class="project">
+            <a class="project-media" href="https://royalty-home-inc-steel.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Open Royalty Home Inc.">
+              <img src="assets/royalty-screenshot.png" alt="Royalty Home Inc. website screenshot" />
+            </a>
+            <div class="project-copy">
+              <div class="project-meta"><span>Service business</span><span>Active</span></div>
+              <h3>Royalty Home Inc.</h3>
+              <p>A full-service renovation website for a Toronto studio, covering kitchens, bathrooms, and full-home transformations across the GTA.</p>
+              <a class="project-link" href="https://royalty-home-inc-steel.vercel.app/" target="_blank" rel="noopener noreferrer">View project</a>
+            </div>
+          </article>
+
+          <article class="project">
+            <a class="project-media" href="https://seline-website-three.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Open Seline">
+              <img src="assets/seline-chat-dark.png" alt="Seline app screen" />
+            </a>
+            <div class="project-copy">
+              <div class="project-meta"><span>iOS app</span><span>In progress</span></div>
+              <h3>Seline</h3>
+              <p>A productivity and life-management app concept with an LLM at its core for email, calendar, visits, receipts, journaling, and notes.</p>
+              <a class="project-link" href="https://seline-website-three.vercel.app/" target="_blank" rel="noopener noreferrer">View project</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="brief" class="brief-section" aria-labelledby="brief-title">
+        <div class="brief-wrap">
+          <aside class="brief-aside">
+            <p class="section-kicker">Start here</p>
+            <h2 id="brief-title">Write the website you want.</h2>
+            <p>Send the rough version. The goal is not a perfect specification. The goal is enough context to turn the idea into a polished first mockup within a day.</p>
+            <a class="contact-line" href="mailto:alishah.amin96@gmail.com">alishah.amin96@gmail.com</a>
+          </aside>
+
+          <form class="brief-form" id="brief-form">
+            <div class="form-grid">
+              <div class="field">
+                <label for="name">Name</label>
+                <input id="name" name="name" autocomplete="name" required />
+              </div>
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" autocomplete="email" required />
+              </div>
+              <div class="field">
+                <label for="business">Business or project</label>
+                <input id="business" name="business" autocomplete="organization" />
+              </div>
+              <div class="field">
+                <label for="timeline">Ideal timeline</label>
+                <select id="timeline" name="timeline">
+                  <option>As soon as possible</option>
+                  <option>Within 2 weeks</option>
+                  <option>Within 1 month</option>
+                  <option>Still exploring</option>
+                </select>
+              </div>
+              <div class="field full">
+                <label for="idea">Website idea</label>
+                <textarea id="idea" name="idea" required placeholder="Describe what you want to create, the pages or features you imagine, who it is for, and any websites you like."></textarea>
+              </div>
+              <div class="field full">
+                <label for="features">Features you may need</label>
+                <input id="features" name="features" placeholder="Authentication, metrics, reports, payments, booking, admin dashboard..." />
+              </div>
+            </div>
+            <div class="submit-row">
+              <button class="primary-btn" type="submit">Send request</button>
+              <p class="form-note">Opens your email app with a structured brief addressed to Locker Zero.</p>
+            </div>
+          </form>
+        </div>
+      </section>
     </div>
-    <span class="footer-crafted">Crafted with precision.</span>
+  </main>
+
+  <footer class="site-footer">
+    <span>Locker Zero</span>
+    <span>Mockups in 24 hours. Websites built for launch.</span>
   </footer>
 
   <script>
-    // Navbar scroll behavior
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 40);
-    });
+    const header = document.querySelector("#site-header");
+    const form = document.querySelector("#brief-form");
 
-    // Theme toggle
-    const themeToggle = document.getElementById('themeToggle');
-    const saved = localStorage.getItem('lz-theme');
-    if (saved) document.documentElement.setAttribute('data-theme', saved);
-    themeToggle.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme');
-      const next = current === 'light' ? 'dark' : 'light';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('lz-theme', next);
-    });
+    function updateHeader() {
+      header.classList.toggle("is-scrolled", window.scrollY > 12);
+    }
 
-    // IntersectionObserver for fade-up animations
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
-    );
+    window.addEventListener("scroll", updateHeader, { passive: true });
+    updateHeader();
 
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
 
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
+      const data = new FormData(form);
+      const name = data.get("name") || "";
+      const email = data.get("email") || "";
+      const business = data.get("business") || "";
+      const timeline = data.get("timeline") || "";
+      const idea = data.get("idea") || "";
+      const features = data.get("features") || "";
+
+      const subject = `Locker Zero website request from ${name}`;
+      const body = [
+        "New Locker Zero website request",
+        "",
+        `Name: ${name}`,
+        `Email: ${email}`,
+        `Business or project: ${business}`,
+        `Timeline: ${timeline}`,
+        "",
+        "Website idea:",
+        idea,
+        "",
+        "Features needed:",
+        features
+      ].join("\n");
+
+      window.location.href = `mailto:alishah.amin96@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     });
   </script>
 </body>
