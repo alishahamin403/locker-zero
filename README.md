@@ -14,7 +14,7 @@ python3 -m http.server 3000
 
 Open `http://localhost:3000`.
 
-The request form uses a `mailto:` flow addressed to `alishah.amin96@gmail.com`, which keeps the site deployable as plain static HTML. A silent form submission would require adding a backend endpoint or third-party form service.
+The request form uses a `mailto:` flow to send structured briefs to the site owner, which keeps the site deployable as plain static HTML. A silent form submission would require adding a backend endpoint or third-party form service.
 
 ## Public Repo Note
 

@@ -428,17 +428,140 @@
     .project:nth-child(even) .project-media { order: 2; }
 
     .project-media {
-      overflow: hidden;
-      border-radius: 38px;
-      background: #171713;
+      display: block;
       box-shadow: var(--shadow);
     }
 
-    .project-media img {
+    .browser-template {
+      overflow: hidden;
+      padding: 12px;
+      border: 1px solid rgba(17, 17, 15, 0.14);
+      border-radius: 34px;
+      background: #1b1c18;
+    }
+
+    .browser-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 34px;
+      padding: 0 8px 10px;
+    }
+
+    .browser-dots {
+      display: inline-flex;
+      gap: 6px;
+      flex: 0 0 auto;
+    }
+
+    .browser-dots span {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: rgba(255, 253, 247, 0.34);
+    }
+
+    .browser-address {
       width: 100%;
-      height: min(48vw, 420px);
-      object-fit: cover;
+      min-width: 0;
+      padding: 6px 12px;
+      overflow: hidden;
+      color: rgba(255, 253, 247, 0.62);
+      border-radius: 999px;
+      background: rgba(255, 253, 247, 0.08);
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .browser-screen {
+      display: grid;
+      place-items: center;
+      min-height: min(40vw, 380px);
+      overflow: hidden;
+      border-radius: 24px;
+      background: #0f100e;
+    }
+
+    .browser-screen img {
+      width: 100%;
+      height: 100%;
+      max-height: min(40vw, 380px);
+      object-fit: contain;
       object-position: top center;
+    }
+
+    .phone-showcase {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(10px, 2.3vw, 20px);
+      min-height: min(48vw, 460px);
+      padding: clamp(18px, 3vw, 34px);
+      overflow: hidden;
+      border: 1px solid rgba(17, 17, 15, 0.14);
+      border-radius: 38px;
+      background:
+        radial-gradient(circle at 50% 18%, rgba(36, 76, 124, 0.26), transparent 36%),
+        #171713;
+      box-shadow: var(--shadow);
+    }
+
+    .iphone-frame {
+      position: relative;
+      aspect-ratio: 9 / 19.4;
+      width: min(28%, 150px);
+      min-width: 96px;
+      padding: 8px;
+      border: 2px solid #050505;
+      border-radius: 28px;
+      background: #050505;
+      box-shadow: 0 18px 46px rgba(0, 0, 0, 0.34);
+    }
+
+    .iphone-frame:nth-child(1) { transform: rotate(-6deg) translateY(14px); }
+    .iphone-frame:nth-child(2) { width: min(31%, 168px); transform: translateY(-4px); z-index: 1; }
+    .iphone-frame:nth-child(3) { transform: rotate(6deg) translateY(14px); }
+
+    .iphone-notch {
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      z-index: 2;
+      width: 36%;
+      height: 14px;
+      border-radius: 999px;
+      background: #050505;
+      transform: translateX(-50%);
+    }
+
+    .iphone-screen {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border-radius: 21px;
+      background: #111;
+    }
+
+    .iphone-screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      background: #111;
+    }
+
+    .iphone-frame::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 14px;
+      width: 34%;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      transform: translateX(-50%);
     }
 
     .project-copy {
@@ -501,12 +624,30 @@
       line-height: 1.7;
     }
 
-    .contact-line {
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .contact-link {
       display: inline-flex;
-      margin-top: 22px;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
       color: var(--blue);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 253, 247, 0.64);
       font-weight: 900;
-      word-break: break-word;
+      transition: transform 180ms ease, border-color 180ms ease;
+    }
+
+    .contact-link:hover {
+      transform: translateY(-2px);
+      border-color: rgba(36, 76, 124, 0.38);
     }
 
     .brief-form {
@@ -638,8 +779,13 @@
       .form-grid { grid-template-columns: 1fr; }
       .project,
       .brief-form { border-radius: 34px; }
-      .project-media { border-radius: 28px; }
-      .project-media img { height: 250px; }
+      .browser-template,
+      .phone-showcase { border-radius: 28px; }
+      .browser-screen { min-height: 210px; border-radius: 18px; }
+      .browser-screen img { max-height: 210px; }
+      .phone-showcase { min-height: 330px; padding: 22px 12px; }
+      .iphone-frame { min-width: 88px; padding: 6px; border-radius: 24px; }
+      .iphone-screen { border-radius: 18px; }
       .site-footer { flex-direction: column; align-items: flex-start; }
     }
   </style>
@@ -775,8 +921,14 @@
 
         <div class="projects">
           <article class="project">
-            <a class="project-media" href="https://awaz-drab.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Open Awaz">
-              <img src="assets/awaz-dark-screenshot.png" alt="Awaz website screenshot" />
+            <a class="project-media browser-template" href="https://awaz-drab.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Open Awaz">
+              <div class="browser-top">
+                <div class="browser-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+                <span class="browser-address">awaz-drab.vercel.app</span>
+              </div>
+              <div class="browser-screen">
+                <img src="assets/awaz-dark-screenshot.png" alt="Awaz website screenshot" />
+              </div>
             </a>
             <div class="project-copy">
               <div class="project-meta"><span>Website</span><span>Active</span></div>
@@ -787,8 +939,14 @@
           </article>
 
           <article class="project">
-            <a class="project-media" href="https://craft-swart-six.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Open Craft">
-              <img src="assets/craft-dark-screenshot.png" alt="Craft website screenshot" />
+            <a class="project-media browser-template" href="https://craft-swart-six.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Open Craft">
+              <div class="browser-top">
+                <div class="browser-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+                <span class="browser-address">craft-swart-six.vercel.app</span>
+              </div>
+              <div class="browser-screen">
+                <img src="assets/craft-dark-screenshot.png" alt="Craft website screenshot" />
+              </div>
             </a>
             <div class="project-copy">
               <div class="project-meta"><span>AI Tool</span><span>In progress</span></div>
@@ -799,8 +957,14 @@
           </article>
 
           <article class="project">
-            <a class="project-media" href="https://royalty-home-inc-steel.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Open Royalty Home Inc.">
-              <img src="assets/royalty-screenshot.png" alt="Royalty Home Inc. website screenshot" />
+            <a class="project-media browser-template" href="https://royalty-home-inc-steel.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Open Royalty Home Inc.">
+              <div class="browser-top">
+                <div class="browser-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+                <span class="browser-address">royalty-home-inc-steel.vercel.app</span>
+              </div>
+              <div class="browser-screen">
+                <img src="assets/royalty-screenshot.png" alt="Royalty Home Inc. website screenshot" />
+              </div>
             </a>
             <div class="project-copy">
               <div class="project-meta"><span>Service business</span><span>Active</span></div>
@@ -811,8 +975,25 @@
           </article>
 
           <article class="project">
-            <a class="project-media" href="https://seline-website-three.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Open Seline">
-              <img src="assets/seline-chat-dark.png" alt="Seline app screen" />
+            <a class="project-media phone-showcase" href="https://seline-website-three.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Open Seline">
+              <div class="iphone-frame">
+                <div class="iphone-notch" aria-hidden="true"></div>
+                <div class="iphone-screen">
+                  <img src="assets/seline-menu-dark.png" alt="Seline menu screen" />
+                </div>
+              </div>
+              <div class="iphone-frame">
+                <div class="iphone-notch" aria-hidden="true"></div>
+                <div class="iphone-screen">
+                  <img src="assets/seline-home-dark.png" alt="Seline home screen" />
+                </div>
+              </div>
+              <div class="iphone-frame">
+                <div class="iphone-notch" aria-hidden="true"></div>
+                <div class="iphone-screen">
+                  <img src="assets/seline-chat-dark.png" alt="Seline chat screen" />
+                </div>
+              </div>
             </a>
             <div class="project-copy">
               <div class="project-meta"><span>iOS app</span><span>In progress</span></div>
@@ -830,7 +1011,10 @@
             <p class="section-kicker">Start here</p>
             <h2 id="brief-title">Write the website you want.</h2>
             <p>Send the rough version. The goal is not a perfect specification. The goal is enough context to turn the idea into a polished first mockup within a day.</p>
-            <a class="contact-line" href="mailto:alishah.amin96@gmail.com">alishah.amin96@gmail.com</a>
+            <div class="contact-actions" aria-label="Contact options">
+              <a class="contact-link" href="tel:+14047860110">Call 404-786-0110</a>
+              <a class="contact-link" href="https://wa.me/14047860110" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            </div>
           </aside>
 
           <form class="brief-form" id="brief-form">
@@ -867,7 +1051,7 @@
             </div>
             <div class="submit-row">
               <button class="primary-btn" type="submit">Send request</button>
-              <p class="form-note">Opens your email app with a structured brief addressed to Locker Zero.</p>
+              <p class="form-note">Opens your email app with a structured brief for Locker Zero.</p>
             </div>
           </form>
         </div>
@@ -894,6 +1078,7 @@
     form.addEventListener("submit", function (event) {
       event.preventDefault();
 
+      const recipient = ["alishah.amin96", "gmail.com"].join("@");
       const data = new FormData(form);
       const name = data.get("name") || "";
       const email = data.get("email") || "";
@@ -918,7 +1103,7 @@
         features
       ].join("\n");
 
-      window.location.href = `mailto:alishah.amin96@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     });
   </script>
 </body>
