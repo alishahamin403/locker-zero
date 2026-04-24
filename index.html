@@ -9,6 +9,13 @@
   <meta property="og:description" content="Submit your website idea and get a mockup within a day. Build the full product with authentication, analytics, reports, and payment integrations." />
   <meta property="og:type" content="website" />
   <link rel="icon" href="assets/locker-zero-logo.svg" type="image/svg+xml" />
+  <script>
+    (function () {
+      var saved = localStorage.getItem("locker-zero-theme");
+      var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.setAttribute("data-theme", saved || (prefersDark ? "dark" : "light"));
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
@@ -26,6 +33,43 @@
       --green: #657a42;
       --white: #fffdf7;
       --shadow: 0 28px 80px rgba(32, 31, 26, 0.14);
+      --header-bg: rgba(247, 244, 237, 0.76);
+      --page-gradient: linear-gradient(110deg, rgba(232, 236, 228, 0.85), rgba(247, 244, 237, 0.78) 42%, rgba(255, 253, 247, 0.92));
+      --grid-line: rgba(17, 17, 15, 0.035);
+      --soft-fill: rgba(255, 253, 247, 0.55);
+      --copy: #3f4039;
+      --panel: rgba(255, 253, 247, 0.62);
+      --panel-alt: rgba(232, 236, 228, 0.7);
+      --field-bg: rgba(255, 253, 247, 0.9);
+      --label: #43443e;
+      --meta-fill: rgba(17, 17, 15, 0.06);
+      --note-text: #fffdf7;
+      --note-muted: rgba(255, 253, 247, 0.78);
+    }
+
+    [data-theme="dark"] {
+      --ink: #f4f0e7;
+      --muted: #aaa599;
+      --line: rgba(244, 240, 231, 0.14);
+      --paper: #10110f;
+      --mist: #1d211c;
+      --clay: #d49a72;
+      --blue: #88b7e8;
+      --green: #adbf77;
+      --white: #171813;
+      --shadow: 0 30px 90px rgba(0, 0, 0, 0.38);
+      --header-bg: rgba(16, 17, 15, 0.76);
+      --page-gradient: linear-gradient(110deg, rgba(28, 34, 29, 0.88), rgba(16, 17, 15, 0.9) 44%, rgba(26, 24, 21, 0.92));
+      --grid-line: rgba(244, 240, 231, 0.045);
+      --soft-fill: rgba(244, 240, 231, 0.08);
+      --copy: #d4cfc2;
+      --panel: rgba(244, 240, 231, 0.07);
+      --panel-alt: rgba(173, 191, 119, 0.08);
+      --field-bg: rgba(244, 240, 231, 0.08);
+      --label: #d4cfc2;
+      --meta-fill: rgba(244, 240, 231, 0.1);
+      --note-text: #10110f;
+      --note-muted: rgba(16, 17, 15, 0.72);
     }
 
     html { scroll-behavior: smooth; }
@@ -34,11 +78,10 @@
       margin: 0;
       color: var(--ink);
       font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        linear-gradient(110deg, rgba(232, 236, 228, 0.85), rgba(247, 244, 237, 0.78) 42%, rgba(255, 253, 247, 0.92)),
-        var(--paper);
+      background: var(--page-gradient), var(--paper);
       line-height: 1.5;
       overflow-x: hidden;
+      transition: background 220ms ease, color 220ms ease;
     }
 
     body::before {
@@ -47,8 +90,8 @@
       inset: 0;
       z-index: -1;
       background-image:
-        linear-gradient(rgba(17, 17, 15, 0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(17, 17, 15, 0.035) 1px, transparent 1px);
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
       background-size: 46px 46px;
       mask-image: linear-gradient(to bottom, black, transparent 78%);
     }
@@ -56,6 +99,10 @@
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
     button, input, textarea, select { font: inherit; }
+
+    .theme-image-dark { display: none; }
+    [data-theme="dark"] .theme-image-light { display: none; }
+    [data-theme="dark"] .theme-image-dark { display: block; }
 
     .site-header {
       position: fixed;
@@ -68,7 +115,7 @@
       justify-content: space-between;
       gap: 24px;
       padding: 18px clamp(18px, 5vw, 58px);
-      background: rgba(247, 244, 237, 0.76);
+      background: var(--header-bg);
       border-bottom: 1px solid transparent;
       backdrop-filter: blur(18px);
     }
@@ -88,7 +135,7 @@
       height: 32px;
       display: grid;
       place-items: center;
-      color: var(--white);
+      color: var(--note-text);
       background: var(--ink);
       border-radius: 50%;
       font-size: 0.75rem;
@@ -105,6 +152,27 @@
     }
 
     .nav-links a:hover { color: var(--ink); }
+
+    .theme-toggle {
+      width: 44px;
+      height: 44px;
+      display: inline-grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--ink);
+      background: var(--soft-fill);
+      cursor: pointer;
+      font-size: 0.76rem;
+      font-weight: 900;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+
+    .theme-toggle:hover { transform: translateY(-2px); }
+
+    .theme-toggle .mode-dark { display: none; }
+    [data-theme="dark"] .theme-toggle .mode-light { display: none; }
+    [data-theme="dark"] .theme-toggle .mode-dark { display: inline; }
 
     .nav-cta,
     .primary-btn,
@@ -131,7 +199,7 @@
       color: var(--ink);
       border: 1px solid var(--line);
       padding: 0 22px;
-      background: rgba(255, 253, 247, 0.58);
+      background: var(--soft-fill);
     }
 
     .nav-cta:hover,
@@ -194,7 +262,7 @@
     .hero-copy {
       max-width: 690px;
       margin-bottom: 34px;
-      color: #3f4039;
+      color: var(--copy);
       font-size: 1.24rem;
       line-height: 1.65;
     }
@@ -219,7 +287,7 @@
       padding: 9px 14px;
       border: 1px solid var(--line);
       border-radius: 999px;
-      background: rgba(255, 253, 247, 0.55);
+      background: var(--soft-fill);
     }
 
     .hero-visual {
@@ -236,15 +304,68 @@
       position: absolute;
       overflow: hidden;
       border: 1px solid rgba(17, 17, 15, 0.12);
-      border-radius: 34px;
       box-shadow: var(--shadow);
-      background: var(--white);
+      background: #171713;
     }
 
-    .screen-shot img {
+    .screen-shot.web-preview {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 10px;
+      border-radius: 34px;
+    }
+
+    .hero-browser-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 26px;
+      padding: 0 6px;
+    }
+
+    .hero-browser-dots {
+      display: inline-flex;
+      gap: 5px;
+      flex: 0 0 auto;
+    }
+
+    .hero-browser-dots span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255, 253, 247, 0.36);
+    }
+
+    .hero-browser-address {
+      flex: 1;
+      min-width: 0;
+      height: 18px;
+      border-radius: 999px;
+      background: rgba(255, 253, 247, 0.09);
+    }
+
+    .hero-screen-window {
+      display: grid;
+      place-items: center;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+      border-radius: 22px;
+      background: #0f100e;
+    }
+
+    .screen-shot.web-preview .hero-screen-window {
+      padding: 6px;
+    }
+
+    .hero-screen-window img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
+      object-position: center;
+      background: #0f100e;
+      border-radius: 16px;
     }
 
     .screen-shot.primary {
@@ -253,6 +374,7 @@
       width: min(94%, 470px);
       height: 320px;
       transform: rotate(2deg);
+      z-index: 1;
     }
 
     .screen-shot.secondary {
@@ -261,6 +383,7 @@
       width: min(68%, 330px);
       height: 250px;
       transform: rotate(-5deg);
+      z-index: 2;
     }
 
     .screen-shot.phone {
@@ -268,8 +391,46 @@
       bottom: 0;
       width: 162px;
       height: 326px;
+      padding: 8px;
+      border: 2px solid #050505;
       border-radius: 40px;
+      background: #050505;
       transform: rotate(7deg);
+      z-index: 3;
+    }
+
+    .screen-shot.phone .hero-screen-window {
+      height: 100%;
+      padding: 4px;
+      border-radius: 31px;
+    }
+
+    .screen-shot.phone .hero-screen-window img {
+      border-radius: 26px;
+    }
+
+    .hero-phone-notch {
+      position: absolute;
+      top: 13px;
+      left: 50%;
+      z-index: 1;
+      width: 42%;
+      height: 14px;
+      border-radius: 999px;
+      background: #050505;
+      transform: translateX(-50%);
+    }
+
+    .screen-shot.phone::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 14px;
+      width: 36%;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.7);
+      transform: translateX(-50%);
     }
 
     .floating-note {
@@ -294,7 +455,7 @@
 
     .floating-note span {
       display: block;
-      color: rgba(255, 253, 247, 0.78);
+      color: var(--note-muted);
       font-size: 0.92rem;
     }
 
@@ -346,10 +507,10 @@
       padding: 26px;
       border: 1px solid var(--line);
       border-radius: 42px;
-      background: rgba(255, 253, 247, 0.58);
+      background: var(--panel);
     }
 
-    .flow-step:nth-child(2) { margin-top: 34px; background: rgba(232, 236, 228, 0.72); }
+    .flow-step:nth-child(2) { margin-top: 34px; background: var(--panel-alt); }
     .flow-step:nth-child(3) { margin-top: 68px; background: rgba(201, 134, 91, 0.14); }
     .flow-step:nth-child(4) { margin-top: 102px; background: rgba(36, 76, 124, 0.1); }
 
@@ -416,13 +577,13 @@
       overflow: hidden;
       border: 1px solid var(--line);
       border-radius: 50px;
-      background: rgba(255, 253, 247, 0.62);
+      background: var(--panel);
       box-shadow: 0 20px 70px rgba(32, 31, 26, 0.08);
     }
 
     .project:nth-child(even) {
       grid-template-columns: 0.9fr 1.1fr;
-      background: rgba(232, 236, 228, 0.7);
+      background: var(--panel-alt);
     }
 
     .project:nth-child(even) .project-media { order: 2; }
@@ -581,7 +742,7 @@
       padding: 8px 12px;
       border-radius: 999px;
       color: var(--muted);
-      background: rgba(17, 17, 15, 0.06);
+      background: var(--meta-fill);
       font-size: 0.78rem;
       font-weight: 800;
       letter-spacing: 0;
@@ -640,7 +801,7 @@
       color: var(--blue);
       border: 1px solid var(--line);
       border-radius: 999px;
-      background: rgba(255, 253, 247, 0.64);
+      background: var(--soft-fill);
       font-weight: 900;
       transition: transform 180ms ease, border-color 180ms ease;
     }
@@ -654,7 +815,7 @@
       padding: clamp(24px, 4vw, 44px);
       border: 1px solid var(--line);
       border-radius: 50px;
-      background: rgba(255, 253, 247, 0.72);
+      background: var(--panel);
       box-shadow: var(--shadow);
     }
 
@@ -673,7 +834,7 @@
     .field.full { grid-column: 1 / -1; }
 
     label {
-      color: #43443e;
+      color: var(--label);
       font-size: 0.82rem;
       font-weight: 900;
       letter-spacing: 0;
@@ -684,10 +845,10 @@
     textarea,
     select {
       width: 100%;
-      border: 1px solid rgba(17, 17, 15, 0.14);
+      border: 1px solid var(--line);
       border-radius: 24px;
       color: var(--ink);
-      background: rgba(255, 253, 247, 0.9);
+      background: var(--field-bg);
       outline: none;
       padding: 16px 18px;
       transition: border-color 180ms ease, box-shadow 180ms ease;
@@ -771,9 +932,9 @@
       .project-copy h3 { font-size: 2.8rem; }
       .hero-visual { min-height: 420px; }
       .floating-note { left: 0; width: 84%; }
-      .screen-shot.primary { top: 92px; width: 95%; height: 230px; }
-      .screen-shot.secondary { bottom: 28px; width: 68%; height: 178px; }
-      .screen-shot.phone { right: 4px; width: 126px; height: 252px; }
+      .screen-shot.primary { top: 92px; right: 26px; width: 84%; height: 218px; }
+      .screen-shot.secondary { left: 18px; bottom: 30px; width: 58%; height: 158px; }
+      .screen-shot.phone { right: 58px; bottom: 24px; width: 94px; height: 192px; }
       .flow,
       .capabilities,
       .form-grid { grid-template-columns: 1fr; }
@@ -799,6 +960,10 @@
     <nav class="nav-links" aria-label="Primary navigation">
       <a href="#process">Process</a>
       <a href="#builds">Examples</a>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark and light previews">
+        <span class="mode-light">D</span>
+        <span class="mode-dark">L</span>
+      </button>
       <a href="#brief" class="nav-cta">Start a brief</a>
     </nav>
   </header>
@@ -827,9 +992,32 @@
             <span>Submit the brief, review the mockup, refine the flow, launch the site.</span>
           </div>
           <div class="screen-stack">
-            <div class="screen-shot primary"><img src="assets/awaz-dark-screenshot.png" alt="" /></div>
-            <div class="screen-shot secondary"><img src="assets/royalty-screenshot.png" alt="" /></div>
-            <div class="screen-shot phone"><img src="assets/seline-home-dark.png" alt="" /></div>
+            <div class="screen-shot primary web-preview">
+              <div class="hero-browser-bar">
+                <div class="hero-browser-dots"><span></span><span></span><span></span></div>
+                <div class="hero-browser-address"></div>
+              </div>
+              <div class="hero-screen-window">
+                <img class="theme-image-light" src="assets/awaz-screenshot.png" alt="" />
+                <img class="theme-image-dark" src="assets/awaz-dark-screenshot.png" alt="" />
+              </div>
+            </div>
+            <div class="screen-shot secondary web-preview">
+              <div class="hero-browser-bar">
+                <div class="hero-browser-dots"><span></span><span></span><span></span></div>
+                <div class="hero-browser-address"></div>
+              </div>
+              <div class="hero-screen-window">
+                <img src="assets/royalty-screenshot.png" alt="" />
+              </div>
+            </div>
+            <div class="screen-shot phone">
+              <div class="hero-phone-notch"></div>
+              <div class="hero-screen-window">
+                <img class="theme-image-light" src="assets/seline-home-light.png" alt="" />
+                <img class="theme-image-dark" src="assets/seline-home-dark.png" alt="" />
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -927,7 +1115,8 @@
                 <span class="browser-address">awaz-drab.vercel.app</span>
               </div>
               <div class="browser-screen">
-                <img src="assets/awaz-dark-screenshot.png" alt="Awaz website screenshot" />
+                <img class="theme-image-light" src="assets/awaz-screenshot.png" alt="Awaz website screenshot" />
+                <img class="theme-image-dark" src="assets/awaz-dark-screenshot.png" alt="Awaz website screenshot" />
               </div>
             </a>
             <div class="project-copy">
@@ -945,7 +1134,8 @@
                 <span class="browser-address">craft-swart-six.vercel.app</span>
               </div>
               <div class="browser-screen">
-                <img src="assets/craft-dark-screenshot.png" alt="Craft website screenshot" />
+                <img class="theme-image-light" src="assets/craft-screenshot.png" alt="Craft website screenshot" />
+                <img class="theme-image-dark" src="assets/craft-dark-screenshot.png" alt="Craft website screenshot" />
               </div>
             </a>
             <div class="project-copy">
@@ -979,19 +1169,22 @@
               <div class="iphone-frame">
                 <div class="iphone-notch" aria-hidden="true"></div>
                 <div class="iphone-screen">
-                  <img src="assets/seline-menu-dark.png" alt="Seline menu screen" />
+                  <img class="theme-image-light" src="assets/seline-menu-light.png" alt="Seline menu screen" />
+                  <img class="theme-image-dark" src="assets/seline-menu-dark.png" alt="Seline menu screen" />
                 </div>
               </div>
               <div class="iphone-frame">
                 <div class="iphone-notch" aria-hidden="true"></div>
                 <div class="iphone-screen">
-                  <img src="assets/seline-home-dark.png" alt="Seline home screen" />
+                  <img class="theme-image-light" src="assets/seline-home-light.png" alt="Seline home screen" />
+                  <img class="theme-image-dark" src="assets/seline-home-dark.png" alt="Seline home screen" />
                 </div>
               </div>
               <div class="iphone-frame">
                 <div class="iphone-notch" aria-hidden="true"></div>
                 <div class="iphone-screen">
-                  <img src="assets/seline-chat-dark.png" alt="Seline chat screen" />
+                  <img class="theme-image-light" src="assets/seline-chat-light.png" alt="Seline chat screen" />
+                  <img class="theme-image-dark" src="assets/seline-chat-dark.png" alt="Seline chat screen" />
                 </div>
               </div>
             </a>
@@ -1067,6 +1260,15 @@
   <script>
     const header = document.querySelector("#site-header");
     const form = document.querySelector("#brief-form");
+    const themeToggle = document.querySelector("#theme-toggle");
+
+    function setTheme(theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+      localStorage.setItem("locker-zero-theme", theme);
+      if (themeToggle) {
+        themeToggle.setAttribute("aria-label", theme === "dark" ? "Switch to light previews" : "Switch to dark previews");
+      }
+    }
 
     function updateHeader() {
       header.classList.toggle("is-scrolled", window.scrollY > 12);
@@ -1074,6 +1276,14 @@
 
     window.addEventListener("scroll", updateHeader, { passive: true });
     updateHeader();
+
+    if (themeToggle) {
+      setTheme(document.documentElement.getAttribute("data-theme") || "light");
+      themeToggle.addEventListener("click", function () {
+        const nextTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        setTheme(nextTheme);
+      });
+    }
 
     form.addEventListener("submit", function (event) {
       event.preventDefault();
