@@ -163,8 +163,9 @@
       color: var(--ink);
       background: var(--soft-fill);
       cursor: pointer;
-      font-size: 0.76rem;
+      font-size: 1.08rem;
       font-weight: 900;
+      line-height: 1;
       transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
     }
 
@@ -961,8 +962,8 @@
       <a href="#process">Process</a>
       <a href="#builds">Examples</a>
       <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark and light previews">
-        <span class="mode-light">D</span>
-        <span class="mode-dark">L</span>
+        <span class="mode-light" aria-hidden="true">☾</span>
+        <span class="mode-dark" aria-hidden="true">☀</span>
       </button>
       <a href="#brief" class="nav-cta">Start a brief</a>
     </nav>
@@ -1104,7 +1105,7 @@
             <p class="section-kicker">Example work</p>
             <h2 id="builds-title">Side projects that show the range.</h2>
           </div>
-          <p class="section-intro">These projects from Ali Shah Amin’s portfolio show the kinds of digital products Locker Zero can help shape, design, and build.</p>
+          <p class="section-intro">Every customer comes in with a different wish list. These examples show how Locker Zero can turn rough requests into websites, service platforms, AI tools, and app experiences.</p>
         </div>
 
         <div class="projects">
